@@ -1,10 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy Blazor WASM to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -20,13 +18,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
 
+      # If your .csproj is in a subfolder, replace the publish line with:
+      # dotnet publish ./YourFolder/YourProject.csproj -c Release -o release
       - name: Publish
         run: dotnet publish -c Release -o release
 
@@ -35,15 +36,15 @@ jobs:
         run: |
           sed -i 's/<base href="\/" \/>/<base href="\/TestTypingSpeeds.github.io\/" \/>/g' release/wwwroot/index.html
 
-      # IMPORTANT: allow folders starting with "_" (Blazor uses _framework)
+      # IMPORTANT: serve Blazor’s _framework folder on GitHub Pages
       - name: Disable Jekyll
         run: touch release/wwwroot/.nojekyll
 
-      # OPTIONAL (but recommended): fix refresh/deep-links like /typing
+      # Fix refresh/deep-links like /typing
       - name: SPA routing fallback
         run: cp release/wwwroot/index.html release/wwwroot/404.html
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: release/wwwroot
