@@ -1,2 +1,0 @@
-# TestTypingSpeeds.github.io
-TestTypingSpeeds
