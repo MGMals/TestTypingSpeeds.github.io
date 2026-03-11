@@ -46,9 +46,16 @@
     <script src="js/appear.js"></script>
     <script src="js/mixitup.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/wordAnimation.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
 
+    <script>
+        window.addEventListener("load", function () {
+            const word = document.getElementById("word-of-day");
+            if (word) {
+                word.classList.add("animate__animated", "animate__fadeInUp");
+            }
+        });
+    </script>
 </body>
 
 </html>
