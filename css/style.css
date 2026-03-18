@@ -1263,7 +1263,6 @@ Scroll To Top style
     right: 15px;
   }
 }
-
 /*** 
 
 ====================================================================
@@ -1420,7 +1419,7 @@ Main Header
     position: relative;
     width: 100%;
     z-index: 999;
-    background-color: var(--theme-color-dark);
+    background: var(--Text-Heading-Color, var(--theme-color-dark));
 }
 
 .header-top {
@@ -12033,235 +12032,125 @@ Sidebar
 ====================================================================
 
 ***/
-.tt-shell {
-    max-width: 860px;
-    margin: 24px auto;
-    padding: 0 16px;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+.typing-engine {
+    max-width: 900px;
+    margin: auto;
+    outline: none;
 }
 
-.tt-title {
-    margin: 0 0 14px;
-    font-size: 1.8rem;
-}
-
-.tt-card {
-    border: 1px solid #e5e5e5;
-    border-radius: 14px;
-    padding: 16px;
-    background: #fff;
-}
-
-.tt-row {
+.mode-bar {
     display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.tt-field {
-    flex: 1;
-    min-width: 220px;
-}
-
-.tt-label {
-    display: block;
-    font-size: 0.95rem;
-    margin-bottom: 6px;
-    opacity: 0.85;
-}
-
-.tt-select {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 12px;
-    border: 1px solid #cfcfcf;
-    font-size: 1rem;
-    background: #fff;
-}
-
-.tt-start {
-    display: inline-block;
-    padding: 10px 14px;
-    border-radius: 12px;
-    border: 0;
-    cursor: pointer;
-    background: #16a34a; /* green */
-    color: #fff; /* white text */
-    font-weight: 700;
-    font-size: 1rem;
-}
-
-    .tt-start:active {
-        transform: translateY(1px);
+    .mode-bar button {
+        padding: 6px 14px;
+        border: none;
+        background: #eee;
+        cursor: pointer;
+        border-radius: 4px;
     }
 
-.tt-hint {
-    margin: 12px 0 0;
-    font-size: 0.95rem;
-    opacity: 0.8;
-}
+    .mode-bar .active {
+        background: #00bcd4;
+        color: white;
+    }
 
-.tt-topbar {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-}
-
-.tt-badge {
-    padding: 8px 10px;
-    border-radius: 999px;
-    border: 1px solid #eee;
-    background: #fafafa;
-    font-size: 0.95rem;
-}
-
-.tt-phrase {
-    margin: 10px 0 12px;
-}
-
-.tt-target {
-    padding: 12px;
-    border-radius: 12px;
-    background: #f7f7f7;
-    border: 1px solid #eee;
-    font-size: 1.05rem;
-    line-height: 1.4;
-}
-
-.tt-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #cfcfcf;
-    font-size: 1rem;
-    outline: none;
-}
-
-.tt-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.tt-btn {
-    padding: 8px 12px;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    background: #fff;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.tt-results {
-    margin-top: 14px;
-    padding: 14px;
-    border-radius: 14px;
-    background: #fafafa;
-    border: 1px solid #eee;
-}
-
-.tt-results-grid {
+.typing-dashboard {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.tt-big {
-    font-size: 1.4rem;
-    margin-top: 4px;
+.stat-title {
+    font-size: 12px;
+    color: #888;
 }
 
-.phrase-area {
-    position: relative;
-    width: 100%;
-    max-width: 800px; /* control width here */
-    margin: 0 auto;
+.stat-value {
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.phrase-display {
-    font-size: 20px;
-    line-height: 1.8;
-    font-family: monospace;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+.timer-bar {
+    height: 6px;
+    width: 70%;
+    margin: 6px auto 0 auto;
+    background: #ddd;
+    border-radius: 4px;
 }
 
-.typing-container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-}
-
-/* Transparent overlay input */
-.typing-overlay {
-    position: absolute;
-    inset: 0;
-    width: 100%;
+.timer-progress {
     height: 100%;
-    background: transparent;
-    color: transparent;
-    caret-color: transparent;
-    border: none;
-    outline: none;
-    resize: none;
-    font-size: 20px;
-    line-height: 1.8;
+    background: #4caf50;
+    transition: width 1s linear;
+}
+
+.typing-text {
+    font-size: 28px;
     font-family: monospace;
-    white-space: pre-wrap;
-    overflow: hidden;
+    line-height: 2;
+    color: #bbb;
 }
 
-/* Character states */
-.char {
-    transition: color 0.1s ease;
+.word {
+    margin-right: 8px;
 }
 
-.char-pending {
-    color: #aaa;
+.active-word {
+    background: rgba(0,200,255,0.08);
+    border-radius: 4px;
 }
 
-.char-correct {
-    color: #16a34a; /* green */
+.correct {
+    color: #4caf50;
 }
 
-.char-wrong {
-    color: #dc2626; /* red */
+.wrong {
+    color: #ff5252;
+    background: rgba(255,0,0,0.15);
 }
 
-/* Blinking caret */
-.caret {
-    display: inline-block;
-    width: 2px;
-    height: 1.2em;
-    background: black;
-    margin-left: -1px;
+.current-letter {
+    border-left: 3px solid #00e5ff;
     animation: blink 1s infinite;
-    vertical-align: bottom;
 }
 
 @keyframes blink {
-    0%, 50%, 100% {
-        opacity: 1;
-    }
-
-    25%, 75% {
-        opacity: 0;
+    50% {
+        border-color: transparent;
     }
 }
-
-@media (max-width: 940px) {
-    .tt-results-grid {
-        grid-template-columns: 1fr;
-    }
+.results-overlay,
+.ad-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-.start-button {
-    background-color: green;
-    color: white;
+.results-box,
+.ad-box {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
 }
-code {
-    color: #c02d76;
+
+.fake-ad {
+    height: 150px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
 }
