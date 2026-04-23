@@ -1,3 +1,9 @@
+:root {
+    --title-font: "Oswald", sans-serif;
+    --title-font2: "Oswald", sans-serif;
+    --text-font: "Raleway", sans-serif;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -35,6 +41,19 @@ a, .btn-link {
 .validation-message {
     color: red;
 }
+
+.validation-summary-errors {
+    color: #dc3545 !important;
+}
+
+    .validation-summary-errors ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .validation-summary-errors li {
+        color: #dc3545 !important;
+    }
 
 #blazor-error-ui {
     background: lightyellow;
@@ -97,5 +116,103 @@ a, .btn-link {
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
     }
+.navlinks {
+    position: relative;
+    color: white;
+    font-size: medium;
+    font-family: var(--title-font);
+}
 
+    .navlinks::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 100%;
+        height: 3px;
+        color: white;
+        background: transparent;
+        transition: all 0.2s ease;
+    }
 
+    .navlinks.active::after {
+        background: #FFD700;
+        color: white;
+    }
+
+/*** 
+
+====================================================================
+  Bottom Hiring Banner for ads always showing
+====================================================================
+
+***/
+
+.global-banner {
+    position: fixed;
+    bottom: 0px; /* start off-screen */
+    left: 0;
+    width: 100%;
+    height: 50px; /* banner height */
+    background-color: #FFD700;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    /* start hidden */
+    transform: translateY(100%);
+    opacity: 0;
+    /* smooth animation curve (Stripe-like feel) */
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    will-change: transform, opacity;
+}
+    /* ENTER STATE */
+    .global-banner.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    /* EXIT STATE */
+    .global-banner.hide {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+/* optional polish */
+.global-banner {
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.25);
+}
+   
+    .global-banner .banner-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .global-banner .banner-link {
+        background-color: #2ab6f7;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .global-banner .ad-link:hover {
+        background-color: #1b8ac0;
+    }
+    .global-banner:hover {
+        transform: translateY(-2px);
+    }
+    .global-banner .banner-close {
+     
+        background: none;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: #000;
+    }
