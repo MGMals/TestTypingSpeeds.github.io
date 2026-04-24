@@ -30,6 +30,8 @@ License: copyright commercial
 **********************************************/
 @import url("animate.css");
 @import url("flaticon.css");
+@import url("fontawesome.css");
+
 
 :root {
     --theme-color-light: #ffffff;
