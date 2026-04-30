@@ -99,21 +99,4 @@
     border-bottom: 2px solid #eee;
 }
 
-/* ====== Buttons ====== */
-.test-buttons {
-    display: flex;
-    gap: 10px;
-}
 
-    .test-buttons button {
-        padding: 8px 12px;
-        cursor: pointer;
-    }
-
-/* ====== Results ====== */
-.results {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
