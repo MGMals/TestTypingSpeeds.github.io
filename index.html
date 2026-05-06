@@ -74,24 +74,42 @@
         };
     </script>
 
-    <div id="modal-root"></div>
+    <!--<div id="modal-root"></div>-->
 
     <script>
-        function shareChallenge(url, text) {
-            if (navigator.share) {
-                navigator.share({
-                    title: "Typing Challenge",
-                    text: text,
-                    url: url
-                });
-            } else {
-                // fallback: copy link
-                navigator.clipboard.writeText(url);
-                alert("Link copied! Share it with your friends.");
+        async function shareChallenge(url, text) {
+
+            try {
+                if (navigator.share) {
+                    await navigator.share({
+                        title: "Typing Challenge",
+                        text: text,
+                        url: url
+                    });
+
+                    // user successfully shared or closed share sheet
+                    window.dispatchEvent(new Event("shareClosed"));
+                }
+                else {
+                    await navigator.clipboard.writeText(url);
+                    alert("Link copied! Share it with your friends.");
+                    window.dispatchEvent(new Event("shareClosed"));
+                }
+            }
+            catch (err) {
+                console.log("Share cancelled or failed", err);
+                window.dispatchEvent(new Event("shareClosed"));
             }
         }
     </script>
 
+    <script>
+        function registerShareListener(dotnetRef) {
+            window.addEventListener("shareClosed", () => {
+                dotnetRef.invokeMethodAsync("OnShareClosed");
+            });
+        }
+    </script>
 </body>
 
 </html>

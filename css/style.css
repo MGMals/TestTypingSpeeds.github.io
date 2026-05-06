@@ -1846,8 +1846,7 @@ Main Header
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   font-size: 24px;
-  color: #2ab6f7; /* main color */
-  text-decoration: none;
+  color: #2ab6f7;
 }
 
 .site-logo span {
@@ -1859,6 +1858,11 @@ Main Header
     align-items: center;
 }
 
+@media (max-width: 768px) {
+    .site-logo {
+        font-size: 18px;
+    }
+}
 
 
 /*** 
@@ -10898,11 +10902,25 @@ Results Page
 ====================================================================
 
 ***/
+.results-wrapper {
+    opacity: 0;
+    transform: scale(0.96);
+    transition: all 0.35s ease;
+    pointer-events: none;
+}
+
+    .results-wrapper.show {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+    }
+
+
 .results-card {
-    max-width: 500px;
-    margin: 50px auto;
+    max-width: 100%;
+    margin: 0px, 0px, 0px, 0px;
     padding: 25px;
-    border-radius: 12px;
+    border-radius: 5px;
     background: white;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     text-align: center;
@@ -11001,6 +11019,127 @@ Results Page
         transform: scale(1);
         opacity: 1;
     }
+}
+
+.results-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blur-card {
+    text-align: center;
+}
+
+.ad-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.ad-modal {
+    width: 500px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.video-placeholder {
+    height: 250px;
+    background: #eee;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bottom-right-ad {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    width: 160px;
+    z-index: 1000;
+}
+
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+    filter: blur(6px);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.results-visible .metrics-grid {
+    filter: blur(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+    padding: 10px;
+    border-style: solid;
+    border-color: white;
+    /*    background: #f5f6f8; #2ab6f7 */
+    /*    background: linear-gradient(135deg, #2ab6f7, #66c9ff);*/
+/*    box-shadow: 0 10px 25px rgba(13, 110, 253, 0.25);*/
+}
+
+    .metric-card:hover {
+        transform: translateY(-3px);
+    }
+
+.metric-value {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.metric-label {
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+/* micro bar (VERY important for premium feel) */
+.mini-bar {
+    height: 4px;
+    width: 70%;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #2ab6f7, #66c9ff);
+}
+
+/* color accents */
+.metric-card.acc .mini-bar {
+    background: linear-gradient(90deg, #00ff9a, #00c37a);
+}
+
+.metric-card.err .mini-bar {
+    background: linear-gradient(90deg, #ff4d6d, #ff7a8f);
 }
 /*** 
 
@@ -11645,6 +11784,9 @@ Sidebar
 .sticky-ad {
     position: sticky;
     top: 80px; /* distance from top while scrolling */
+
+    display: flex;
+    justify-content: center;
 }
 
 /* Optional: center bottom ad */
@@ -11703,20 +11845,80 @@ Sidebar
     border-style: solid;
     border-color: white;
     margin-bottom: 15px;
-    font-weight: 700;
-    --text-color: black;
     align-items: center;
     padding: 10px;
-    background: #f5f6f8;
+    /*    background: #f5f6f8; #2ab6f7 */
+    background: linear-gradient(135deg, #2ab6f7, #66c9ff);
+    box-shadow: 0 10px 25px rgba(13, 110, 253, 0.25);
     border-radius: 8px;
 }
 
-.timer-icon {
+.typing-stats-bar-text {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    --text-color: white;
+    color:white;
+}
+
+.timer-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 2px;
+    /* warm warning-tinted base instead of gray */
+    background: rgba(255, 210, 77, 0.12);
+    border: 1px solid rgba(255, 210, 77, 0.35);
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transition: all 0.2s ease;
+}
+
+    /* icon becomes part of identity */
+    .timer-chip i {
+        color: #ffd24d; /* matches warning tone */
+        font-size: 14px;
+    }
+
+
+    /* hover = premium lift */
+    .timer-chip:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.3), 0 0 0 1px rgba(42,182,247,0.3);
+    }
+
+/* IMPORTANT: make time the focal point */
+
+.timer-value {
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-left: 4px;
+    color: #ffffff; /* always white base */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+    /* your existing logic BUT boosted for visibility */
+    .timer-value.text-success {
+        color: #00FF9A; /* bright mint neon green */
+        text-shadow: 0 0 10px rgba(0, 255, 154, 0.35);
+    }
+
+    .timer-value.text-warning {
+        color: #ffd24d;
+    }
+
+    .timer-value.text-danger {
+        color: #ff3b5c;
+    }
+
+/*.timer-icon {
     font-size: 24px;
-    color: #3b82f6;
+    color: orangered;
     margin-right: 6px;
     animation: tick 1s infinite linear;
-}
+}*/
 
 @keyframes tick {
     0% {
@@ -11729,7 +11931,7 @@ Sidebar
 }
 .stat-title {
     font-size: 12px;
-    color: #888;
+    color: orangered;
 }
 
 .stat-value {
@@ -11795,6 +11997,47 @@ Sidebar
         border-color: transparent;
     }
 }
+
+/*dropdown*/
+
+.form-select.custom-select {
+    background-color: #36454F;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 10px 36px 10px 12px;
+    font-size: 14px;
+    /* Smooth transitions */
+    transition: all 0.2s ease;
+    /* Replace arrow with gray one */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23b0b8c1' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+}
+
+    /* Hover = soft glow */
+    .form-select.custom-select:hover {
+        border-color: #2ab6f7;
+        box-shadow: 0 0 0 2px rgba(42,182,247,0.15);
+    }
+
+    /* Focus = slightly stronger */
+    .form-select.custom-select:focus {
+        outline: none;
+        border-color: #2ab6f7;
+        box-shadow: 0 0 0 3px rgba(42,182,247,0.25);
+    }
+
+    /* Optional: tiny press feel */
+    .form-select.custom-select:active {
+        transform: scale(0.98);
+    }
+
+
 /*.results-overlay,
 .ad-overlay {
     position: relative;
@@ -12015,14 +12258,14 @@ Sidebar
 }*/
 
 .challenge-banner {
-    max-width: 700px;
-    margin: 15px auto 20px auto;
+    max-width: 1000px;
+    margin: 15px auto 20px 5px; /* left is now smaller */
     padding: 14px 18px;
     display: flex;
     align-items: center;
     gap: 12px;
     border-radius: 14px;
-    background: linear-gradient(135deg, #0d6efd, #3a8dff);
+    background: linear-gradient(135deg, #2ab6f7, #66c9ff);
     box-shadow: 0 10px 25px rgba(13, 110, 253, 0.25);
     color: white;
     animation: challengePop 0.35s ease;
